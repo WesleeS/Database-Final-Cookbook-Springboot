@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Step</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+    <h1>Delete Step</h1>
+    <hr>
+
+    <div id="delete-container">
+        <p>Are you sure you want to delete this step?</p>
+        <button id="delete-button">Delete</button>
+        <button id="cancel-button">Cancel</button>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const recipeId = urlParams.get("id");
+        const stepId = urlParams.get("step");
+
+        $("#delete-button").click(function () {
+            $.ajax({
+                url: `http://localhost:8080/step/${recipeId}/${stepId}`,
+                type: 'DELETE',
+                success: function () {
+                    alert("Step deleted successfully!");
+                    window.location.href = `http://localhost:8080/recipe-view.html?id=${recipeId}`;
+                },
+                error: function () {
+                    alert("Error deleting step.");
+                }
+            });
+        });
+
+        $("#cancel-button").click(function () {
+            window.location.href = `http://localhost:8080/recipe-view.html?id=${recipeId}`;
+        });
+    </script>
+</body>
+</html>

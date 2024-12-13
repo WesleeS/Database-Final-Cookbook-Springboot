@@ -1,0 +1,13 @@
+/home/honk/Desktop/wscookbook/src/main/java/project/wscookbook/Greeting.java
+/home/honk/Desktop/wscookbook/src/main/java/project/wscookbook/GreetingController.java
+/home/honk/Desktop/wscookbook/src/main/java/project/wscookbook/WscookbookApplication.java
+/home/honk/Desktop/wscookbook/src/main/java/project/wscookbook/controller/CookbookController.java
+/home/honk/Desktop/wscookbook/src/main/java/project/wscookbook/controller/RecipeController.java
+/home/honk/Desktop/wscookbook/src/main/java/project/wscookbook/controller/StepController.java
+/home/honk/Desktop/wscookbook/src/main/java/project/wscookbook/entity/Cookbook.java
+/home/honk/Desktop/wscookbook/src/main/java/project/wscookbook/entity/Recipe.java
+/home/honk/Desktop/wscookbook/src/main/java/project/wscookbook/entity/Step.java
+/home/honk/Desktop/wscookbook/src/main/java/project/wscookbook/repository/BaseRepository.java
+/home/honk/Desktop/wscookbook/src/main/java/project/wscookbook/repository/CookbookRepository.java
+/home/honk/Desktop/wscookbook/src/main/java/project/wscookbook/repository/RecipeRepository.java
+/home/honk/Desktop/wscookbook/src/main/java/project/wscookbook/repository/StepRepository.java

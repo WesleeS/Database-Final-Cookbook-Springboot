@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <p><a href="/recipe-index.html">Home</a> <a id="recipe-json" href="">JSON</a></p>
+    
+</head>
+<body>
+    <h1 id="recipe-name">Loading Recipe...</h1>
+    <hr>
+    <div id="recipe-container">
+        <p>Loading steps...</p>
+    </div>
+
+    <div id="recipe-new">
+        <a href=""><p>Add Step</p></a>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const recipeId = urlParams.get("id");
+
+        $("#recipe-json").attr("href", `recipe/${recipeId}`);
+
+        console.log(recipeId);
+
+        $(document).ready(function () {
+            if (!recipeId) {
+                $("#recipe-name").text("Invalid Recipe ID");
+                $("#recipe-container").html("<p>Recipe ID is missing.</p>");
+                return;
+            }
+
+            $.getJSON("recipe/" + recipeId, function (recipeData) {
+                document.title = recipeData.name;
+                $("#recipe-name").text(recipeData.name);
+            })
+
+
+            $.getJSON("step/" + recipeId, function (steps) {
+                $("#recipe-container").empty();
+
+                steps.forEach(function (step) {
+
+                    let formattedStepString = `<b>${step.step}</b>: ${step.directions} <a href="step-edit.html?id=${recipeId}&step=${step.step}">[✎]</a> <a href="step-delete.html?id=${recipeId}&step=${step.step}">[X]</a>`;
+
+                    $("#recipe-container").append(`
+                        <div id="step-${step.step}">
+                            <p>${formattedStepString}</p>
+                        </div>
+                    `);
+
+                    $.getJSON("step/" + recipeId + "/" + step.step + "/ingredient", function (ingredients) {
+                        ingredients.forEach(function (ingredient) {
+                            let formattedIngredientString = `- ${ingredient.name}, ${ingredient.quantity} ${ingredient.measurement}`; 
+
+                            $(`#step-${step.step}`).append(`
+                                    <i><p style="padding-left: 2em; line-height: 1em;">${formattedIngredientString}</p></i>
+                            `);
+                        });
+                    });
+                    
+                });
+            });
+
+
+
+            const addStepLink = `/step-create.html?id=${recipeId}`;
+            $("#recipe-new a").attr("href", addStepLink);
+        });
+    </script>
+</body>
+</html>

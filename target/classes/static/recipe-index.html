@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe List</title>
+    <link rel ="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <p><a href="/recipe-index.html">Home</a> <a href="/recipe">JSON</a></p>
+</head>
+<body>
+    <h1>Recipe List</h1>
+    <hr>
+    
+    <div id="recipe-container">
+
+    </div>
+
+
+<script>
+    
+    $(document).ready(function () {
+        // Fetch the JSON data from the URL
+        $.getJSON("recipe/", function (data) {
+            // Loop through each recipe in the JSON data
+            data.forEach(function (recipe) {
+                // Create a formatted string for each recipe
+                cookbookURL = encodeURIComponent(recipe.cookbookTitle);
+                console.log("cookbook/" + cookbookURL)
+                const formattedString = `<a href="recipe-view.html?id=${recipe.id}">${recipe.name}</a>, is from <a href="cookbook/${cookbookURL}"><i>"${recipe.cookbookTitle}"</i></a>, and is a(n) ${recipe.difficulty} recipe.`;
+                
+                // Append the formatted string as a paragraph to the #recipe-container
+                $("#recipe-container").append(`<p>${formattedString}</p>`);
+            });
+        }).fail(function () {
+            console.error("Error fetching data from recipe/all");
+            $("#recipe-container").append("<p>Failed to load recipes.</p>");
+        });
+    });
+</script>
+    
+</body>
+</html>
